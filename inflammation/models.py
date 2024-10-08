@@ -43,7 +43,8 @@ def load_json(filename):
 def daily_mean(data):
     """Calculate the daily mean of a 2D inflammation data array.
     
-    :param data: Array of values to perform mean
+    :param data: 2D array of values to perform mean
+    :returns: 1D array of values contains means along first axis of data
     """
     return np.mean(data, axis=0)
 
@@ -52,6 +53,7 @@ def daily_max(data):
     """Calculate the daily max of a 2D inflammation data array.
     
     :param data: Array of values to perform max
+    :returns: 1D array of values contains maxes along first axis of data
     """
     return np.max(data, axis=0)
 
@@ -60,5 +62,6 @@ def daily_min(data):
     """Calculate the daily min of a 2D inflammation data array.
     
     :param data: Array of values to perform min
+    :returns: 1D array of values contains mins along first axis of data
     """
     return np.min(data, axis=0)
