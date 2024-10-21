@@ -19,4 +19,4 @@ class CSVDataSource:
         data_file_paths = glob.glob(os.path.join(self.data_dir, 'inflammation*.csv'))
         if len(data_file_paths) == 0:
             raise ValueError(f"No inflammation csv's found in path {self.data_dir}")
-        return map(load_csv, data_file_paths)
+        return list(map(load_csv, data_file_paths))
