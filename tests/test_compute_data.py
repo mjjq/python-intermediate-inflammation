@@ -1,5 +1,19 @@
 from pathlib import Path
 import numpy as np
+import pytest
+
+
+def test_compute_standard_deviation():
+    from inflammation.compute_data import compute_standard_deviation_by_day
+
+    patient_1 = [0.0, 1.0, 0.0]
+    patient_2 = [0.0, 2.0, 0.0]
+
+    files = [patient_1, patient_2]
+
+    std_deviation = compute_standard_deviation_by_day(files)
+
+    np.testing.assert_array_almost_equal(std_deviation, 0.1666668)
 
 
 def test_analyse_data():
