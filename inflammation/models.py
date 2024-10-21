@@ -65,3 +65,8 @@ def daily_min(data):
     :returns: 1D array of values contains mins along first axis of data
     """
     return np.min(data, axis=0)
+
+
+class Patient:
+    def __init__(self, name):
+        self.name = name
