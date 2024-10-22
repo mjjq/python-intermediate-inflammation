@@ -1,6 +1,6 @@
 from pathlib import Path
 import numpy as np
-import pytest
+from unittest.mock import Mock
 
 
 def test_compute_standard_deviation():
@@ -75,3 +75,21 @@ def test_analyse_data():
             ]
         ),
     )
+
+
+def test_compute_data_mock_source():
+    from inflammation.compute_data import analyse_data_from_data_source
+
+    data_source = Mock()
+    data_source.load_data.return_value = np.array([
+        [0.0, 1.0, 2.0],
+        [0.0, 2.0, 3.0]
+    ])
+
+    result = analyse_data_from_data_source(data_source)
+
+    assert 'standard deviation by day' in result
+    
+    result_value = result['standard deviation by day']
+
+    np.testing.assert_almost_equal(result_value, 0.333333333333)
