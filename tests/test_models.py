@@ -42,7 +42,8 @@ def test_load_from_json(tmpdir):
 @pytest.mark.parametrize('data, expected_standard_deviation', [
     ([0, 0, 0], 0.0),
     ([1.0, 1.0, 1.0], 0),
-    ([0.0, 2.0], 1.0)
+    ([0.0, 2.0], 1.0),
+    ([], 0.0)
 ])
 def test_daily_standard_deviation(data, expected_standard_deviation):
     from inflammation.models import standard_deviation
