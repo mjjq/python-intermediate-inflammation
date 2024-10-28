@@ -10,6 +10,9 @@ and each column represents a single day across all patients.
 import json
 import numpy as np
 
+class Patient:
+    def __init__(self, name):
+        self.name = name
 
 def load_csv(filename):
     """Load a Numpy array from a CSV
@@ -66,6 +69,51 @@ def daily_min(data):
     """
     return np.min(data, axis=0)
 
+
+def patient_normalise(data):
+    """
+    Normalise patient data from a 2D inflammation data array.
+
+    NaN values are ignored, and normalised to 0.
+
+    Negative values are rounded to 0.
+
+    :param data: 2D array to be normalised
+    :returns: Normalised 2D array
+    """
+    maxima = np.nanmax(data, axis=1)
+    with np.errstate(invalid='ignore', divide='ignore'):
+        normalised = data / maxima[:, np.newaxis]
+    normalised[np.isnan(normalised)] = 0
+    normalised[normalised < 0] = 0
+    return normalised
+  
+def standard_deviation(data):
+    """Computes and returns standard deviation for data."""
+    if len(data)==0:
+        return {'standard deviation': 0.0}
+    
+    mmm = np.mean(data, axis=0)
+    devs = []
+    for entry in data:
+        devs.append((entry - mmm) * (entry - mmm))
+
+    s_dev2 = sum(devs) / len(data)
+    return {'standard deviation': s_dev2}
+
+  
+def standard_deviation(data):
+    """Computes and returns standard deviation for data."""
+    if len(data)==0:
+        return {'standard deviation': 0.0}
+    
+    mmm = np.mean(data, axis=0)
+    devs = []
+    for entry in data:
+        devs.append((entry - mmm) * (entry - mmm))
+
+    s_dev2 = sum(devs) / len(data)
+    return {'standard deviation': s_dev2}
 
 def patient_normalise(data):
     """

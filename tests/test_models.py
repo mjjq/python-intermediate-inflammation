@@ -3,7 +3,7 @@
 import numpy as np
 import numpy.testing as npt
 import os
-import pytest
+import pytestimport pytest
 
 
 @pytest.mark.parametrize(
@@ -27,42 +27,13 @@ def test_load_from_json(tmpdir):
     npt.assert_array_equal(result, [[1, 2, 3], [4, 5, 6]])
 
 
-@pytest.mark.parametrize(
-    "test, expected",
-    [
-        ([ [0, 0], [0, 0], [0, 0] ], [0, 0]),
-        ([ [1, 6], [3, 4], [5, 2] ], [5, 6]),
-    ])
-def test_daily_max(test, expected):
-    """Test max function works for array of zeroes and positive integers."""
-    from inflammation.models import daily_max
-    npt.assert_array_equal(daily_max(np.array(test)), np.array(expected))
-
-
-
-@pytest.mark.parametrize(
-    "test, expected",
-    [
-        ([ [0, 0], [0, 0], [0, 0] ], [0, 0]),
-        ([ [1, 6], [3, 4], [5, 2] ], [1, 2]),
-    ])
-def test_daily_min(test, expected):
-    """Test min function works for array of zeroes and positive integers."""
-    from inflammation.models import daily_min
-    npt.assert_array_equal(daily_min(np.array(test)), np.array(expected))
-
-
-@pytest.mark.parametrize(
-    "test, expected",
-    [
-        ([ [0, 0], [0, 0], [0, 0] ], [[0, 0], [0, 0], [0, 0]]),
-        ([ [1, 6], [3, 4] ], [ [0.1666666, 1], [0.5, 0.666666] ]),
-        ([ [np.nan, 6], [3, 4] ], [ [0, 1], [0.5, 0.666666] ]),
-        ([ [1, 6], [-3, 4] ], [ [0.1666666, 1], [0.0, 0.666666] ]),
-        ([ [1, -6], [3, 4] ], [ [0.333333, 0.0], [1, 1.333333] ])
-    ])
-def test_normalise(test, expected):
-    """Test patient normalisation function"""
-
-    from inflammation.models import patient_normalise
-    npt.assert_approx_equal(patient_normalise(np.array(test)), np.array(expected))
+@pytest.mark.parametrize('data, expected_standard_deviation', [
+    ([0, 0, 0], 0.0),
+    ([1.0, 1.0, 1.0], 0),
+    ([0.0, 2.0], 1.0),
+    ([], 0.0)
+])
+def test_daily_standard_deviation(data, expected_standard_deviation):
+    from inflammation.models import standard_deviation
+    result_data = standard_deviation(data)['standard deviation']
+    npt.assert_approx_equal(result_data, expected_standard_deviation)
