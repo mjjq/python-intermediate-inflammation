@@ -3,7 +3,7 @@
 import numpy as np
 import numpy.testing as npt
 import os
-import pytestimport pytest
+import pytest
 
 
 @pytest.mark.parametrize(
