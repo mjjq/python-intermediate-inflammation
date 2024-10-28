@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
-"""Software for managing and analysing patients' inflammation data in our imaginary hospital."""
+"""
+Software for managing and analysing patients' 
+inflammation data in our imaginary hospital.
+"""
 
 import argparse
 import os
@@ -19,7 +22,6 @@ def main(args):
     if not isinstance(InFiles, list):
         InFiles = [args.infiles]
 
-
     if args.full_data_analysis:
         analyse_data(os.path.dirname(InFiles[0]))
         return
@@ -32,16 +34,21 @@ def main(args):
 
         views.visualize(view_data)
 
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
-        description='A basic patient inflammation data management system')
+        description="A basic patient inflammation data management system"
+    )
 
     parser.add_argument(
-        'infiles',
-        nargs='+',
-        help='Input CSV(s) containing inflammation series for each patient')
+        "infiles",
+        nargs="+",
+        help="Input CSV(s) containing inflammation series for each patient",
+    )
 
-    parser.add_argument('--full-data-analysis', action='store_true', dest='full_data_analysis')
+    parser.add_argument(
+        "--full-data-analysis", action="store_true", dest="full_data_analysis"
+    )
 
     args = parser.parse_args()
 
