@@ -10,6 +10,9 @@ and each column represents a single day across all patients.
 import json
 import numpy as np
 
+class Patient:
+    def __init__(self, name):
+        self.name = name
 
 def load_csv(filename):
     """Load a Numpy array from a CSV
