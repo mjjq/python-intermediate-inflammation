@@ -57,6 +57,9 @@ def daily_min(data):
   
 def standard_deviation(data):
     """Computes and returns standard deviation for data."""
+    if len(data)==0:
+        return {'standard deviation': 0.0}
+    
     mmm = np.mean(data, axis=0)
     devs = []
     for entry in data:
