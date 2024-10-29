@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "inflam"
+name = "inflammation"
 version = "1.0.0"
 description = "Analyse patient inflammation data"
 authors = ["Marcus Quantrill <marcus.quantrill@ukaea.uk>"]
