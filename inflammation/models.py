@@ -10,9 +10,11 @@ and each column represents a single day across all patients.
 import json
 import numpy as np
 
+
 class Patient:
     def __init__(self, name):
         self.name = name
+
 
 def load_csv(filename):
     """Load a Numpy array from a CSV
@@ -45,7 +47,7 @@ def load_json(filename):
 
 def daily_mean(data):
     """Calculate the daily mean of a 2D inflammation data array.
-    
+
     :param data: 2D array of values to perform mean
     :returns: 1D array of values contains means along first axis of data
     """
@@ -54,7 +56,7 @@ def daily_mean(data):
 
 def daily_max(data):
     """Calculate the daily max of a 2D inflammation data array.
-    
+
     :param data: Array of values to perform max
     :returns: 1D array of values contains maxes along first axis of data
     """
@@ -63,7 +65,7 @@ def daily_max(data):
 
 def daily_min(data):
     """Calculate the daily min of a 2D inflammation data array.
-    
+
     :param data: Array of values to perform min
     :returns: 1D array of values contains mins along first axis of data
     """
@@ -82,38 +84,26 @@ def patient_normalise(data):
     :returns: Normalised 2D array
     """
     maxima = np.nanmax(data, axis=1)
-    with np.errstate(invalid='ignore', divide='ignore'):
+    with np.errstate(invalid="ignore", divide="ignore"):
         normalised = data / maxima[:, np.newaxis]
     normalised[np.isnan(normalised)] = 0
     normalised[normalised < 0] = 0
     return normalised
-  
+
+
 def standard_deviation(data):
     """Computes and returns standard deviation for data."""
-    if len(data)==0:
-        return {'standard deviation': 0.0}
-    
+    if len(data) == 0:
+        return {"standard deviation": 0.0}
+
     mmm = np.mean(data, axis=0)
     devs = []
     for entry in data:
         devs.append((entry - mmm) * (entry - mmm))
 
-    s_dev2 = sum(devs) / len(data)
-    return {'standard deviation': s_dev2}
+    standard_dev = sum(devs) / len(data)
+    return {"standard deviation": np.sqrt(standard_dev)}
 
-  
-def standard_deviation(data):
-    """Computes and returns standard deviation for data."""
-    if len(data)==0:
-        return {'standard deviation': 0.0}
-    
-    mmm = np.mean(data, axis=0)
-    devs = []
-    for entry in data:
-        devs.append((entry - mmm) * (entry - mmm))
-
-    s_dev2 = sum(devs) / len(data)
-    return {'standard deviation': s_dev2}
 
 def patient_normalise(data):
     """
@@ -127,7 +117,7 @@ def patient_normalise(data):
     :returns: Normalised 2D array
     """
     maxima = np.nanmax(data, axis=1)
-    with np.errstate(invalid='ignore', divide='ignore'):
+    with np.errstate(invalid="ignore", divide="ignore"):
         normalised = data / maxima[:, np.newaxis]
     normalised[np.isnan(normalised)] = 0
     normalised[normalised < 0] = 0
